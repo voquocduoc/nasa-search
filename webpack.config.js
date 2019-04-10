@@ -5,7 +5,7 @@ var environments = {
     context: __dirname + '/src',
     entry: {
       javascript: './app.js',
-      html: './index.html',
+      html: '../public/index.html',
     },
     module: {
       loaders: [
@@ -22,7 +22,7 @@ var environments = {
     },
     output: {
       filename: 'app.js',
-      path: __dirname + '/dist',
+      path: __dirname + '/public',
     },
     devServer: {
       port: 8000
@@ -33,7 +33,7 @@ var environments = {
     context: __dirname + '/src',
     entry: {
       javascript: './app.js',
-      html: './index.html',
+      html: '../public/index.html',
     },
     module: {
       loaders: [
@@ -53,7 +53,7 @@ var environments = {
     ],
     output: {
       filename: 'app.js',
-      path: __dirname + '/dist',
+      path: __dirname + '/public',
     }
   }
 }
