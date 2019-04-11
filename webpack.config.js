@@ -32,7 +32,9 @@ module.exports = {
   },
   devServer: {
     contentBase: "./public/",
-    watchContentBase: true
+    watchContentBase: true,
+    inline:true,
+    port: 8000
   },
   plugins: [
     new ExtractTextPlugin("bundle.css"),
