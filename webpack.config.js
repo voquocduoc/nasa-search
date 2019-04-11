@@ -1,61 +1,44 @@
-var webpack = require('webpack');
+const path = require("path");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require("webpack");
 
-var environments = {
-  development: {
-    context: __dirname + '/src',
-    entry: {
-      javascript: './app.js',
-      html: '../public/index.html',
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loaders: ['react-hot', 'babel']
-        },
-        {
-          test: /\.html$/,
-          loader: 'file?name=[name].[ext]',
-        }
-      ]
-    },
-    output: {
-      filename: 'app.js',
-      path: __dirname + '/public',
-    },
-    devServer: {
-      port: 8000
-    }
+module.exports = {
+  entry: ["./src/index.js", "./src/styles/main.scss"],
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./public/dist")
   },
-
-  production: {
-    context: __dirname + '/src',
-    entry: {
-      javascript: './app.js',
-      html: '../public/index.html',
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loaders: ['babel'],
-        },
-        {
-          test: /\.html$/,
-          loader: 'file?name=[name].[ext]',
+  module: {
+    rules: [
+      {
+        test: /\.scss/,
+        loader: ExtractTextPlugin.extract(["css-loader", "sass-loader"])
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loaders: "eslint-loader",
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loaders: "babel-loader",
+        options: {
+          presets: ["react", "stage-0", "es2015"],
+          plugins: ["transform-class-properties", "transform-decorators-legacy"]
         }
-      ]
-    },
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin({minimize: true})
-    ],
-    output: {
-      filename: 'app.js',
-      path: __dirname + '/public',
-    }
-  }
-}
-
-module.exports = environments[process.env.NODE_ENV] || environments.development;
+      }
+    ]
+  },
+  devServer: {
+    contentBase: "./public/",
+    watchContentBase: true
+  },
+  plugins: [
+    new ExtractTextPlugin("bundle.css"),
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify("production")
+    }),
+    new webpack.optimize.UglifyJsPlugin()
+  ]
+};

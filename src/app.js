@@ -1,14 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router, hashHistory } from 'react-router';
-import configureStore from './redux/store';
-import routes from './routes';
+import React, { Component } from "react";
+import Counter from "./containers/Counter";
 
-const store = configureStore();
+class App extends Component {
+  render() {
+    return (
+      <Counter />
+    );
+  }
+}
 
-ReactDOM.render((
-  <Provider store={store}>
-    <Router history={hashHistory} routes={routes(store)} />
-  </Provider>
-), document.getElementById('app'));
+export default App;

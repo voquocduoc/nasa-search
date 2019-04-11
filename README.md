@@ -1,21 +1,17 @@
-## Getting Started
-```
-npm install
-npm run dev
-```
+All the required code (JS + Sass) goes inside the ```src``` folder. Webpack will compile, bundle and output in the ```public``` folder
 
-Browse to `http://localhost:8000`.
-
-## Development
-
+### Get started!
 ```
-npm run dev
+npm i
 ```
 
-## Production
+### Start the dev server:
+```
+npm run start:dev
 
+```
+
+### Build:
 ```
 npm run build
 ```
-
-This will build and uglify files to `dist/` ready to push to production.
