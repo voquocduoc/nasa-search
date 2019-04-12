@@ -7,7 +7,7 @@ npm i
 
 ### Start the dev server:
 ```
-npm run start:dev
+npm run dev
 
 ```
 
