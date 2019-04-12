@@ -1,0 +1,71 @@
+@import "_config.scss";
+@import "_mixins.scss";
+
+.search-box {
+  position: relative;
+}
+
+.search-box-input {
+  display: block;
+  width: 100%;
+  padding: $spacer-sm;
+  padding-right: 4rem;
+  font-family: $font-family;
+  color: #38495b;
+  background-color: #fdfdfd;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  appearance: none;
+  line-height: normal;
+  font-size: rem(16px);
+  border: 2px solid $color-gray-lighter;
+
+  transition: 200ms border, background, box-shadow, color ease-in-out;
+  will-change: border, background, box-shadow, color;
+
+  &::placeholder {
+    color: $color-gray-lighter;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: #fff;
+    border-color: $color-primary;
+
+    ~ .SearchBox-submitButton .SearchBox-icon {
+      fill: $color-primary;
+    }
+  }
+
+  @include from-medium {
+    padding: $spacer;
+    padding-right: 4rem;
+    font-size: rem(18px);
+  }
+}
+
+.search-box-icon {
+  fill: $color-gray-lighter;
+  transition: all 200ms ease-in-out;
+
+  .search-box:hover & {
+    fill: $color-primary;
+  }
+}
+
+.search-box-submit-button {
+  position: absolute;
+  right: 1rem;
+  top: calc(50% - 16px);
+
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+
+  background: none;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}

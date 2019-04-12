@@ -9,7 +9,10 @@
     "react-dom": "^16.8.4",
     "react-redux": "^5.1.1",
     "react-router-dom": "^5.0.0",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.3.0",
+    "remote-redux-devtools": "^0.5.16",
+    "style-loader": "^0.23.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
