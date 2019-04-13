@@ -4,15 +4,21 @@
   "description": "Nasa search use react redux sass webpack",
   "watch": true,
   "dependencies": {
+    "@babel/polyfill": "^7.4.3",
+    "i": "^0.3.6",
+    "npm": "^6.9.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-lazyload": "^2.5.0",
     "react-redux": "^5.1.1",
     "react-router-dom": "^5.0.0",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "remote-redux-devtools": "^0.5.16",
-    "style-loader": "^0.23.1"
+    "style-loader": "^0.23.1",
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

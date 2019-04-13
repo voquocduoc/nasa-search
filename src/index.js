@@ -1,10 +1,12 @@
+import "@babel/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Route, Switch, HashRouter } from "react-router-dom";
-import store from "./store";
 import indexRoutes from "./routes";
 import Header from "./components/Header";
+import configureStore from "./store";
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,63 +1,43 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SearchBoxIcon from "./SearchBoxIcon";
-
 class SearchBox extends React.Component {
   static propTypes = {
-    onSubmit: PropTypes.func,
+    onChangeValue: PropTypes.func,
     query: PropTypes.string,
-    shadow: PropTypes.bool
   };
 
   static defaultProps = {
-    onSubmit: () => {},
-    query: "",
-    shadow: true
+    onChangeValue: () => {},
+    query: ""
   };
 
   constructor(props) {
     super(props);
-    const { query } = this.props;
-
     this.state = {
-      query: query || ""
+      query: ""
     };
   }
 
-  handleChange = e =>
+  handleChange = e => {
+    if (e.target.value) {
+      this.props.onChangeValue(e.target.value);
+    }
+
     this.setState({
       query: e.target.value
     });
-
-  handleSubmit = e => {
-    if (e) e.preventDefault();
-
-    const { onSubmit } = this.props;
-    const { query } = this.state;
-
-    if (query) {
-      onSubmit(query);
-    }
-  };
+  }
 
   render() {
     const { query } = this.state;
-    const { shadow } = this.props;
-
     return (
-      <form
-        className={"search-box"}
-        onSubmit={this.handleSubmit}
-      >
+      <div className="search-box">
         <input
           value={query}
           onChange={this.handleChange}
           className="search-box-input"
         />
-        <button className="searchBox-submit-button">
-          <SearchBoxIcon />
-        </button>
-      </form>
+      </div>
     );
   }
 }
