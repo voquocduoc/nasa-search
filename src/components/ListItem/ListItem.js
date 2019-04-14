@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import LazyLoad from "react-lazyload";
 
-// eslint-disable-next-line react/prop-types
-const ListItem = ({ dataItem }) => {
+const ListItem = ({ dataItem, onClickAddToCollection }) => {
   return (
     <article className="item">
-      <Link className="list-item-wrapper" to={`/video/${dataItem.nasaID}`} title={dataItem.title}>
-        <div className="col-sm-6 col-md-4 list-item-image-wrapper">
-          <div className="thumbnail">
+      <div className="col-sm-6 col-md-4 list-item-image-wrapper">
+        <div className="thumbnail">
+          <Link className="list-item-wrapper" to={`/video/${dataItem.nasaID}`} title={dataItem.title}>
             <LazyLoad height={200} once>
               <img
                 src={dataItem.linkAsset}
@@ -17,33 +16,36 @@ const ListItem = ({ dataItem }) => {
                 title={dataItem.title}
                 className="list-item-image"
               />
-              <div className="caption">
-                <div className="time-category">
-                  <span className="category pull-left">
-                    Space
-                  </span>
-                  <span className="time pull-right">
-                    {
-                      dataItem.dataCreated
-                    }
-                  </span>
-                </div>
-                <div className="title">
-                  {dataItem.title}
-                </div>
-                <div className="description" dangerouslySetInnerHTML={{__html: dataItem.description}} />
-              </div>
             </LazyLoad>
+          </Link>
+          <div className="caption">
+            <div className="time-category">
+              <span className="category pull-left">
+                {dataItem.center}
+              </span>
+              <span className="time pull-right">
+                {
+                  dataItem.dataCreated
+                }
+              </span>
+            </div>
+            <div className="title">
+              <h3>{dataItem.title}</h3>
+            </div>
+            <div className="description" dangerouslySetInnerHTML={{__html: dataItem.description}} />
+            <button onClick={() => onClickAddToCollection(dataItem)} className="btn btn-primary" role="button">
+              <span className="glyphicon glyphicon-plus">Add to NASA Collection</span>
+            </button>
           </div>
         </div>
-        
-      </Link>
+      </div>
     </article>
   );
 };
 
-ListItem.propType = {
-  dataItem: PropTypes.node
+ListItem.propTypes = {
+  dataItem: PropTypes.object.isRequired,
+  onClickAddToCollection: PropTypes.func
 };
 
 export default ListItem;

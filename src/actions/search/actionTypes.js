@@ -1,3 +1,6 @@
-export const MEDIA_GET_LIST = "MEDIA_GET_LIST";
-export const MEDIA_GET_BY_ID = "MEDIA_GET_BY_ID";
-export const MEDIA_QUERY = "MEDIA_QUERY";
+export const MEDIA_LIST = "MEDIA_LIST";
+export const LOAD_SPINER = "LOAD_SPINER";
+export const MEDIA_ITEM = "MEDIA_ITEM";
+export const OPEN_POPUP = "OPEN_POPUP";
+
+

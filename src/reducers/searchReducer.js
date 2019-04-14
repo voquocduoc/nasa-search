@@ -1,29 +1,33 @@
 import * as types from "../actions/search/actionTypes";
 
 const initialState = {
-  query: "",
   list: [],
-  id: ""
+  loadSpiner: false,
+  openPopup: false,
+  mediaItem: {}
 };
 
 const searchReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.MEDIA_QUERY:
-      var result = {
-        ...state,
-        query : action.query
-      };
-      return result;
-    case types.MEDIA_GET_LIST:
-      var result = {
-        ...state,
-        list : action.list
-      };
-      return result;
-    case types.MEDIA_GET_BY_ID:
+    case types.MEDIA_LIST:
       return {
         ...state,
-        id: action.id
+        list : action.list
+      };;
+    case types.LOAD_SPINER:
+      return {
+        ...state,
+        loadSpiner: action.loadSpiner
+      };
+    case types.MEDIA_ITEM:
+      return {
+        ...state,
+        mediaItem: action.mediaItem
+      };
+    case types.OPEN_POPUP:
+      return {
+        ...state,
+        openPopup: action.openPopup
       };
     default:
       return state;

@@ -2,16 +2,55 @@ import * as types from "./actionTypes";
 import api from "../../services/api";
 
 export const queryMedia = item => dispatch => {
+  var resultData = [];
   if (item) {
     api.search(item).then(response => {
-      let listDataResponse = response && response.collection.items.length ? response.collection.items : [];
-      dispatch(setMediaList(listDataResponse));
+      resultData = response && response.collection.items.length ? response.collection.items : [];
+      dispatch(setMediaList(resultData));
     });
   }
 };
 
 const setMediaList = list => ({
-  type: types.MEDIA_GET_LIST,
+  type: types.MEDIA_LIST,
   list: list
 });
 
+export const loadSpiner = value => dispatch => {
+  dispatch(_loadSpiner(value));
+};
+
+const _loadSpiner = value => ({
+  type: types.LOAD_SPINER,
+  loadSpiner: value
+});
+
+export const viewMedia = item => dispatch => {
+  var resultData = item;
+  if (item) {
+    dispatch(_loadSpiner(true));
+    api.asset(item.nasaID).then(response => {
+      if (response) {
+        var items =  response.collection.items;
+        resultData.videos = items;
+        dispatch(_setMediaItem(resultData));
+        dispatch(_loadSpiner(false));
+        dispatch(_openPopup(true));
+      }
+    });
+  }
+};
+
+const _setMediaItem = item => ({
+  type: types.MEDIA_ITEM,
+  mediaItem: item
+});
+
+export const openPopUp = value => dispatch => {
+  dispatch(_openPopup(value));
+};
+
+const _openPopup = value => ({
+  type: types.OPEN_POPUP,
+  openPopup: value
+});

@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { Route, Switch, HashRouter } from "react-router-dom";
 import indexRoutes from "./routes";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import configureStore from "./store";
 const store = configureStore();
 
@@ -27,6 +28,7 @@ ReactDOM.render(
           </HashRouter>
         </div>
       </body>
+      <Footer/>
     </div>
   </Provider>, document.getElementById("root")
 );

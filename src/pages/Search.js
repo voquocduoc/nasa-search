@@ -2,14 +2,22 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { queryMedia } from "../actions/search";
+import { queryMedia, viewMedia, loadSpiner, openPopUp} from "../actions/search";
 import SearchBox from "../components/SearchBox";
 import List from "../components/List";
+import Loader from "../components/Loader";
+import PopUp from "../components/PopUp";
 
 class Search extends Component {
   static propTypes = {
     doQueryMedia: PropTypes.func,
-    listData: PropTypes.array
+    doViewMedia: PropTypes.func,
+    listData: PropTypes.array,
+    openPopup: PropTypes.bool,
+    isLoadSpiner: PropTypes.bool,
+    mediaItem: PropTypes.object,
+    doLoadSpiner: PropTypes.func,
+    doOpenPopup: PropTypes.func
   }
 
   constructor(props) {
@@ -22,8 +30,24 @@ class Search extends Component {
     }
   }
 
+  handleOnClickAddToCollection = (dataItem) => {
+    this.props.doViewMedia(dataItem);
+  }
+
+  handleClosePopup = () => {
+    this.props.doOpenPopup(false);
+  }
+
+  handleSubmitAddCollection = (propsForm) => {
+    console.log("props", propsForm);
+  }
+
   shouldComponentUpdate(nextProps) {
-    return nextProps.listData.length && nextProps.listData.length !== this.props.listData.length;
+    console.log(nextProps);
+    return nextProps.listData.length && nextProps.listData.length !== this.props.listData.length
+    || nextProps.isLoadSpiner !== this.props.isLoadSpiner
+    || nextProps.openPopup !== this.props.openPopup
+    || (nextProps.mediaItem && this.props.mediaItem && nextProps.mediaItem.nasaID !== this.props.mediaItem.nasaID);
   }
 
   render() {
@@ -31,21 +55,36 @@ class Search extends Component {
     return (
       <div className="search">
         <div className="container">
-          <div className="row navigation">
-            <Link to="/">
-              <div className="btn btn-default pull-left">
-                <span className="glyphicon glyphicon-menu-left">Back to Collection</span>
+          <nav className="navbar navbar-default">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <Link to="/">
+                  <div className="btn btn-default pull-left">
+                    <span className="glyphicon glyphicon-menu-left">Back to Collection</span>
+                  </div>
+                </Link>
               </div>
-            </Link>
-          </div>
-          <div className="title">
+            </div>
+          </nav>
+          <div className="page-header">
             <h1>Search From Nasa</h1>
           </div>
           <div className="search">
             <SearchBox onChangeValue={this.handleOnchangeValueSearch}/>
           </div>
           <div className="list-data">
-            <List listItems={listData} />
+            <List listItems={listData} onClickAddToCollection={this.handleOnClickAddToCollection}/>
+          </div>
+          <div className="render-popup">
+            <PopUp 
+              open={this.props.openPopup}
+              handleClose={this.handleClosePopup} 
+              data={this.props.mediaItem}
+              handleSubmitForm={this.handleSubmitAddCollection}
+            />
+          </div>
+          <div className="search-loading">
+            <Loader loading={this.props.isLoadSpiner}/>
           </div>
         </div>
       </div>
@@ -55,12 +94,18 @@ class Search extends Component {
 
 function mapStateToProps(state) {
   return {
-    listData: state.searchReducer.list
+    listData: state.searchReducer.list,
+    isLoadSpiner: state.searchReducer.loadSpiner,
+    openPopup: state.searchReducer.openPopup,
+    mediaItem: state.searchReducer.mediaItem,
   };
 }
 
 const mapDispatchToProps = {
-  doQueryMedia: queryMedia
+  doQueryMedia: queryMedia,
+  doViewMedia: viewMedia,
+  doLoadSpiner: loadSpiner,
+  doOpenPopup: openPopUp
 };
 
 export default connect(

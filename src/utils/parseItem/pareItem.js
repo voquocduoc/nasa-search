@@ -11,6 +11,7 @@ const parseItem = (item) => {
         var mediaType = data.media_type;
         var nasaID = data.nasa_id;
         var title = data.title;
+        var center = data.center;
     }
 
     var links = item.links;
@@ -24,7 +25,8 @@ const parseItem = (item) => {
         mediaType: mediaType,
         nasaID: nasaID,
         linkAsset: linkAsset,
-        title: title
+        title: title,
+        center: center
     };
 };
 
