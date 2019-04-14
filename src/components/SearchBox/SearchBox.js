@@ -36,6 +36,7 @@ class SearchBox extends React.Component {
           value={query}
           onChange={this.handleChange}
           className="search-box-input"
+          placeholder="Type something to search ..."
         />
       </div>
     );

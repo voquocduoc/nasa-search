@@ -1,17 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
+import ListItem from "../ListItem";
+import parseItem from "../../utils/parseItem";
 
-const List = ({ children }) => {
-  const galleryItems = children.map((child, index) => (
-    <div className="list-item" key={index}>
-      {child}
-    </div>
-  ));
-  return <div className="list">{galleryItems}</div>;
-};
-
-List.propTypes = {
-  children: PropTypes.node
+// eslint-disable-next-line react/prop-types
+const List = ({ listItems }) => {
+  return ( 
+    <div className="row list">
+      {
+        listItems.map((item, index) => {
+          return <ListItem key={index} dataItem={parseItem(item)} />;
+        })
+      }
+    </div>);
 };
 
 export default List;

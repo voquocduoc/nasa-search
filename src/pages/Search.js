@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { queryMedia } from "../actions/search";
 import SearchBox from "../components/SearchBox";
 import List from "../components/List";
-import ListItem from "../components/ListItem";
 
 class Search extends Component {
   static propTypes = {
@@ -24,25 +23,11 @@ class Search extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log(nextProps, nextProps.listData.length && nextProps.listData.length !== this.props.listData.length);
     return nextProps.listData.length && nextProps.listData.length !== this.props.listData.length;
-  }
-  
-  renderListItem = (listData) => {
-    if (listData && listData.length) {
-      listData.map( (item, index) => {
-        let data = item.data && item.data.length ? item.data : null;
-        console.log(item);
-        // return (
-        //   <ListItem image={ image } id={ nasaId } key={ nasaId } title={ title } />
-        // );
-      });
-    }
   }
 
   render() {
     const { listData } = this.props;
-
     return (
       <div className="search">
         <div className="container">
@@ -60,9 +45,7 @@ class Search extends Component {
             <SearchBox onChangeValue={this.handleOnchangeValueSearch}/>
           </div>
           <div className="list-data">
-            {
-              this.renderListItem(listData)
-            }
+            <List listItems={listData} />
           </div>
         </div>
       </div>
