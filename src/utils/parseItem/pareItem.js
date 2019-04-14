@@ -1,4 +1,5 @@
 import formateDate from "../formatDate";
+import { TYPE_ITEMS_MAP } from "../../constant";
 
 const parseItem = (item) => {
     if (typeof item !== "object") {
@@ -8,7 +9,7 @@ const parseItem = (item) => {
     if (data) {
         var dateCreated = data.date_created;
         var description = data.description;
-        var mediaType = data.media_type;
+        var mediaType = TYPE_ITEMS_MAP[data.media_type];
         var nasaID = data.nasa_id;
         var title = data.title;
         var center = data.center;

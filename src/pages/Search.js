@@ -38,8 +38,9 @@ class Search extends Component {
     this.props.doOpenPopup(false);
   }
 
-  handleSubmitAddCollection = (propsForm) => {
-    console.log("props", propsForm);
+  handleSubmitAddCollection = (event) => {
+    event.preventDefault();
+    console.log("props", event.target);
   }
 
   shouldComponentUpdate(nextProps) {

@@ -10,6 +10,11 @@ export const TYPE_IMAGE = {
     key: 2,
     value: "image"
 };
+export const TYPE_ITEMS_MAP = {
+    "video" : 1,
+    "image": 2
+};
+
 export const TYPE_ITEMS = [
     TYPE_VIDEO,
     TYPE_IMAGE
@@ -21,5 +26,6 @@ export default {
     API_KEY,
     TYPE_IMAGE,
     TYPE_VIDEO,
+    TYPE_ITEMS_MAP,
     TYPE_ITEMS
 };
