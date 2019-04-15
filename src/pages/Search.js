@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { queryMedia, viewMedia, loadSpiner, openPopUp} from "../actions/search";
+import { queryMedia, viewMedia, loadSpiner, openPopUp, saveCollection, saveSuccessCollection} from "../actions/search";
 import SearchBox from "../components/SearchBox";
 import List from "../components/List";
 import Loader from "../components/Loader";
 import PopUp from "../components/PopUp";
+import serialize from "form-serialize";
 
 class Search extends Component {
   static propTypes = {
@@ -17,7 +18,10 @@ class Search extends Component {
     isLoadSpiner: PropTypes.bool,
     mediaItem: PropTypes.object,
     doLoadSpiner: PropTypes.func,
-    doOpenPopup: PropTypes.func
+    doOpenPopup: PropTypes.func,
+    doSaveCollection: PropTypes.func,
+    doSaveSuccessCollection: PropTypes.func,
+    isSaveSuccessCollection: PropTypes.bool
   }
 
   constructor(props) {
@@ -40,15 +44,30 @@ class Search extends Component {
 
   handleSubmitAddCollection = (event) => {
     event.preventDefault();
-    console.log("props", event.target);
+    var mediaItem = this.props.mediaItem;
+    var formData = serialize(event.target, {hash: true});
+    mediaItem.title = formData.title;
+    mediaItem.description = formData.description;
+    mediaItem.linkAsset = formData.linkPreviewImageUrl;
+    mediaItem.linkVideo = formData.linkFileUrl;
+    mediaItem.mediaType = Number(formData.type);
+    this.props.doSaveCollection(mediaItem);
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log(nextProps);
     return nextProps.listData.length && nextProps.listData.length !== this.props.listData.length
     || nextProps.isLoadSpiner !== this.props.isLoadSpiner
     || nextProps.openPopup !== this.props.openPopup
+    || nextProps.isSaveSuccessCollection
     || (nextProps.mediaItem && this.props.mediaItem && nextProps.mediaItem.nasaID !== this.props.mediaItem.nasaID);
+  }
+
+  UNSAFE_componentWillUpdate(nextProps) {
+    if (nextProps.isSaveSuccessCollection) {
+      this.props.doSaveSuccessCollection(false);
+      // eslint-disable-next-line react/prop-types
+      this.props.history.goBack();
+    }
   }
 
   render() {
@@ -100,6 +119,7 @@ function mapStateToProps(state) {
     isLoadSpiner: state.searchReducer.loadSpiner,
     openPopup: state.searchReducer.openPopup,
     mediaItem: state.searchReducer.mediaItem,
+    isSaveSuccessCollection: state.searchReducer.saveSuccessCollection
   };
 }
 
@@ -107,7 +127,9 @@ const mapDispatchToProps = {
   doQueryMedia: queryMedia,
   doViewMedia: viewMedia,
   doLoadSpiner: loadSpiner,
-  doOpenPopup: openPopUp
+  doOpenPopup: openPopUp,
+  doSaveCollection: saveCollection,
+  doSaveSuccessCollection: saveSuccessCollection
 };
 
 export default connect(

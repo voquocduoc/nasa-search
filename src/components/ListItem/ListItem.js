@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import LazyLoad from "react-lazyload";
 
-const ListItem = ({ dataItem, onClickAddToCollection }) => {
+const ListItem = ({ dataItem, onClickAddToCollection, onClickEditItem, onClickAddToWishList, onClikDeleteItem }) => {
   return (
     <article className="item">
       <div className="col-sm-6 col-md-4 list-item-image-wrapper">
@@ -33,9 +33,33 @@ const ListItem = ({ dataItem, onClickAddToCollection }) => {
               <h3>{dataItem.title}</h3>
             </div>
             <div className="description" dangerouslySetInnerHTML={{__html: dataItem.description}} />
-            <button onClick={() => onClickAddToCollection(dataItem)} className="btn btn-primary" role="button">
-              <span className="glyphicon glyphicon-plus">Add to NASA Collection</span>
-            </button>
+            {
+              typeof onClickAddToCollection === "function" &&
+              <button onClick={() => onClickAddToCollection(dataItem)} className="btn btn-primary" role="button">
+                <span className="glyphicon glyphicon-plus">Add to NASA Collection</span>
+              </button>
+            }
+
+            {
+              typeof onClickAddToWishList === "function" &&
+              <button onClick={() => onClickAddToWishList(dataItem)} className="btn btn-primary" role="button">
+                <span className="glyphicon glyphicon-heart"></span>
+              </button>
+            }
+
+            {
+              typeof onClikDeleteItem === "function" &&
+              <button onClick={() => onClikDeleteItem(dataItem)} className="btn btn-primary" role="button">
+                <span className="glyphicon glyphicon-trash"></span>
+              </button>
+            }
+
+            {
+              typeof onClickEditItem === "function" &&
+              <button onClick={() => onClickEditItem(dataItem)} className="btn btn-primary" role="button">
+                <span className="glyphicon glyphicon-pencil"></span>
+              </button>
+            }            
           </div>
         </div>
       </div>
@@ -45,7 +69,10 @@ const ListItem = ({ dataItem, onClickAddToCollection }) => {
 
 ListItem.propTypes = {
   dataItem: PropTypes.object.isRequired,
-  onClickAddToCollection: PropTypes.func
+  onClickAddToCollection: PropTypes.func,
+  onClickEditItem: PropTypes.func,
+  onClickAddToWishList: PropTypes.func,
+  onClikDeleteItem: PropTypes.func,
 };
 
 export default ListItem;

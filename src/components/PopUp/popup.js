@@ -18,7 +18,7 @@ const PopUp = ({ handleClose, data, open, handleSubmitForm }) => {
             </div>
             <div className="form-group">
               <label htmlFor="description">Description</label>
-              <textarea className="form-control" rows="10" cols="20">
+              <textarea className="form-control" name="description" rows="10" cols="20">
                 {
                   data.description
                 }
@@ -40,11 +40,11 @@ const PopUp = ({ handleClose, data, open, handleSubmitForm }) => {
             </div>
             <div className="form-group">
               <label htmlFor="link-preview-image-url">Link preview image url <span className="required">*</span></label>
-              <input type="text" required className="form-control" name="link-preview-image-url" id="link-preview-image-url-popup" value={data.linkAsset} />
+              <input type="text" required className="form-control" name="linkPreviewImageUrl" id="link-preview-image-url-popup" value={data.linkAsset} />
             </div>
             <div className="form-group">
               <label htmlFor="link-file-url">Link file url <span className="required">*</span></label>
-              <input type="text" required className="form-control" name="link-file-url" id="link-file-url-popup" value={videosDisplay} />
+              <input type="text" required className="form-control" name="linkFileUrl" id="link-file-url-popup" value={videosDisplay} />
             </div>
             <button type="submit" className="btn btn-default">
               Add to collection
