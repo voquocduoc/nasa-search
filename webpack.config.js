@@ -6,7 +6,7 @@ module.exports = {
   entry: ["./src/index.js", "./src/styles/index.scss"],
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "./public/dist")
+    path: path.resolve(__dirname, "./public")
   },
   resolve: {
     extensions: [".js", ".jsx"],

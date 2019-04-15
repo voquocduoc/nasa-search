@@ -23,7 +23,7 @@ const localStorage = {
   },
   getAllCollection: () => {
     return new Promise((resolve) => {
-      var nasaCollectionValues = window.localStorage.getItem("nasa-collection-values");
+      var nasaCollectionValues = window.localStorage.getItem("nasa-collection-values") ? window.localStorage.getItem("nasa-collection-values") : [];
       resolve(nasaCollectionValues);
     });
   },
@@ -41,7 +41,7 @@ const localStorage = {
         nasaCollectionKeys = JSON.parse(nasaCollectionKeys);
         nasaCollectionValues = JSON.parse(nasaCollectionValues);
         var indexItemInCollection = nasaCollectionKeys.indexOf(id);
-        if (indexItemInCollection) {
+        if (indexItemInCollection > -1 ) {
           resolve(nasaCollectionValues[indexItemInCollection]);
         } else {
           resolve("error");
@@ -79,16 +79,17 @@ const localStorage = {
       var nasaCollectionKeys = window.localStorage.getItem("nasa-collection-keys");
       var nasaCollectionValues = window.localStorage.getItem("nasa-collection-values");
       if (nasaCollectionKeys) {
-        var nasaCollectionKeysParse = JSON.parse(nasaCollectionKeys);
-        var nasaCollectionValuesParse = JSON.parse(nasaCollectionValues);
-        var indexOfItemDelete = nasaCollectionKeysParse.indexOf(item.nasaID);
-        nasaCollectionKeysParse.splice(indexOfItemDelete, 1);
-        nasaCollectionValuesParse.splice(indexOfItemDelete, 1);
-        nasaCollectionKeys = nasaCollectionKeysParse;
-        nasaCollectionValues = nasaCollectionValuesParse;
+        nasaCollectionKeys = JSON.parse(nasaCollectionKeys);
+        nasaCollectionValues = JSON.parse(nasaCollectionValues);
+        var indexOfItemDelete = nasaCollectionKeys.indexOf(item.nasaID);
+        nasaCollectionKeys.splice(indexOfItemDelete, 1);
+        nasaCollectionValues.splice(indexOfItemDelete, 1);
+        window.localStorage.setItem("nasa-collection-keys", JSON.stringify(nasaCollectionKeys));
+        window.localStorage.setItem("nasa-collection-values", JSON.stringify(nasaCollectionValues));
+      } else {
+        window.localStorage.removeItem("nasa-collection-keys");
+        window.localStorage.removeItem("nasa-collection-values");
       }
-      window.localStorage.setItem("nasa-collection-keys", JSON.stringify(nasaCollectionKeys));
-      window.localStorage.setItem("nasa-collection-values", JSON.stringify(nasaCollectionValues));
 
       // remove wishlist
       var listWishList = window.localStorage.getItem("nasa-collection-wishlist");
@@ -99,6 +100,8 @@ const localStorage = {
           listArrayWishlist.splice(indexOfItemInWishList, 1);
           window.localStorage.setItem("nasa-collection-wishlist", JSON.stringify(listArrayWishlist));
         }
+      } else {
+        window.localStorage.removeItem("nasa-collection-wishlist");
       }
       resolve("success");
     });

@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import localStorage from "../../services/localStorage";
+import { getAllCollection, getAllWishList } from "../../helper";
 
 const _getListCollection = item => ({
     type: types.LIST_COLLECTION,
@@ -7,20 +8,23 @@ const _getListCollection = item => ({
 });
 
 export const getListCollection = () => dispatch => {
-    localStorage.getAllCollection().then(result => {
+    getAllCollection().then(result => {
         if (result) {
-            var list = JSON.parse(result);
-            dispatch(_getListCollection(list));
+            dispatch(_getListCollection(result));
         }
+    });
+
+    getAllWishList().then(resultWishList => {
+        dispatch(_getWishList(resultWishList));
     });
 };
 
 export const saveWishList = (item) => dispatch => {
     localStorage.saveWishList(item).then(result => {
         if (result == "success") {
-           localStorage.getAllWishList().then(resultWishList => {
-            dispatch(_getWishList(resultWishList));
-           });
+            getAllWishList().then(resultWishList => {
+                dispatch(_getWishList(resultWishList));
+            });
         }
     });
 };
@@ -33,10 +37,9 @@ export const _getWishList = list => ({
 export const deleteItemCollection = (item) => dispatch => {
     localStorage.deleteItemCollection(item).then(result => {
         if (result == "success") {
-            localStorage.getAllCollection().then(result => {
+            getAllCollection().then(result => {
                 if (result) {
-                    var list = JSON.parse(result);
-                    dispatch(_getListCollection(list));
+                    dispatch(_getListCollection(result));
                 }
             });
         }
@@ -46,10 +49,9 @@ export const deleteItemCollection = (item) => dispatch => {
 export const updateItemCollection = (item) => dispatch => {
     localStorage.updateItemCollection(item).then(result => {
         if (result == "success") {
-            localStorage.getAllCollection().then(result => {
+            getAllCollection().then(result => {
                 if (result) {
-                    var list = JSON.parse(result);
-                    dispatch(_getListCollection(list));
+                    dispatch(_getListCollection(result));
                 }
             });
         }

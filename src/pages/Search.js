@@ -68,7 +68,8 @@ class Search extends Component {
     || (nextProps.mediaItem && this.props.mediaItem && nextProps.mediaItem.nasaID !== this.props.mediaItem.nasaID);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
+  // eslint-disable-next-line react/no-deprecated
+  componentWillUpdate(nextProps) {
     if (nextProps.isSaveSuccessCollection) {
       this.props.doSaveSuccessCollection(false);
       this.props.history.goBack();

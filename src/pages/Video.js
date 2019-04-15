@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import localStorage from "../services/localStorage";
 import api from "../services/api";
 import Loader from "../components/Loader";
+import { getAssetVideo } from "../helper";
 
 class Video extends Component {
   static propTypes = {
@@ -26,19 +27,19 @@ class Video extends Component {
       localStorage.getCollection(id).then(result => {
         if (result !== "error") {
           this.setState({
-            dataItem: result,
+            linkVideo: result.linkVideo,
             error: false,
             loading: false
           });
         } else {
-          api.asset(id).then(response => {
-            if (response.collection && response.collection.items && response.collection.items.length) {
-              var items =  response.collection.items;
+          getAssetVideo(id).then(response => {
+            if (response.length) {
               this.setState({
-                dataItem: items[0],
+                linkVideo: response[0].href,
                 error: false,
                 loading: false
               });
+              
             } else {
               this.setState({
                 error: true,
@@ -60,10 +61,10 @@ class Video extends Component {
               this.state.loading ?
                 <Loader loading={this.state.loading}/>
               : (
-                !this.state.error && this.state.dataItem ? 
-                  <video className="media-detail-media" controls src={this.state.dataItem.linkVideo}>
+                !this.state.error && this.state.linkVideo ? 
+                  <video className="media-detail-media" controls src={encodeURI(this.state.linkVideo)}>
                     Sorry, your browser does not support embedded videos, 
-                    but do not worry, you can <a href={this.state.dataItem.linkVideo}>download it</a>
+                    but do not worry, you can <a href={encodeURI(this.state.linkVideo)}>download it</a>
                     and watch it with your favorite video player!
                   </video>:
                   <div className="alert alert-danger" role="alert">

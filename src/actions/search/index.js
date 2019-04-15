@@ -1,6 +1,7 @@
 import * as types from "./actionTypes";
 import api from "../../services/api";
 import localStorage from "../../services/localStorage";
+import { getAllCollection, getAssetVideo } from "../../helper";
 
 export const queryMedia = item => dispatch => {
   var resultData = [];
@@ -39,10 +40,9 @@ export const viewMedia = item => dispatch => {
   var resultData = item;
   if (item) {
     dispatch(_loadSpiner(true));
-    api.asset(item.nasaID).then(response => {
+    getAssetVideo(item.nasaID).then(response => {
       if (response) {
-        var items =  response.collection.items;
-        resultData.videos = items;
+        resultData.videos = response;
         dispatch(_setMediaItem(resultData));
         dispatch(_loadSpiner(false));
         dispatch(_openPopup(true));
@@ -76,7 +76,7 @@ export const saveCollection = item => dispatch => {
 };
 
 export const getListCollectionSaved = () => dispatch => {
-  localStorage.getAllKeysCollection().then(result => {
+  getAllCollection().then(result => {
     if (result) {
       dispatch(_setListCollectionSaved(JSON.parse(result)));
     }

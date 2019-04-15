@@ -20,6 +20,8 @@ export const TYPE_ITEMS = [
     TYPE_IMAGE
 ];
 
+export const REGEX_TYPE_IMAGE = /(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg|json))/g;
+
 export default {
     NASA_API_URL,
     NASA_API_VIDEO_URL,
@@ -27,5 +29,6 @@ export default {
     TYPE_IMAGE,
     TYPE_VIDEO,
     TYPE_ITEMS_MAP,
-    TYPE_ITEMS
+    TYPE_ITEMS,
+    REGEX_TYPE_IMAGE
 };
