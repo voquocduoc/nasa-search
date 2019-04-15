@@ -40,27 +40,29 @@ const ListItem = ({ dataItem, onClickAddToCollection, onClickEditItem, onClickAd
                 <span>Add to NASA Collection</span>
               </button>
             }
+            <div className="btn-group">
 
-            {
-              typeof onClickAddToWishList === "function" &&
-              <button onClick={() => onClickAddToWishList(dataItem)} className="btn btn-primary" role="button">
-                <span className="glyphicon glyphicon-heart"></span>
-              </button>
-            }
+              {
+                typeof onClickAddToWishList === "function" &&
+                <button onClick={() => onClickAddToWishList(dataItem)} className="btn btn-primary" role="button">
+                  <span className="glyphicon glyphicon-heart"></span>
+                </button>
+              }
 
-            {
-              typeof onClikDeleteItem === "function" &&
-              <button onClick={() => onClikDeleteItem(dataItem)} className="btn btn-primary" role="button">
-                <span className="glyphicon glyphicon-trash"></span>
-              </button>
-            }
+              {
+                typeof onClikDeleteItem === "function" &&
+                <button onClick={() => onClikDeleteItem(dataItem)} className="btn btn-primary" role="button">
+                  <span className="glyphicon glyphicon-trash"></span>
+                </button>
+              }
 
-            {
-              typeof onClickEditItem === "function" &&
-              <button onClick={() => onClickEditItem(dataItem)} className="btn btn-primary" role="button">
-                <span className="glyphicon glyphicon-pencil"></span>
-              </button>
-            }            
+              {
+                typeof onClickEditItem === "function" &&
+                <button onClick={() => onClickEditItem(dataItem)} className="btn btn-primary" role="button">
+                  <span className="glyphicon glyphicon-pencil"></span>
+                </button>
+              } 
+            </div>          
           </div>
         </div>
       </div>
