@@ -5,7 +5,8 @@ const initialState = {
   loadSpiner: false,
   openPopup: false,
   mediaItem: {},
-  saveSuccessCollection: false
+  saveSuccessCollection: false,
+  listCollectionSaved: []
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -34,6 +35,11 @@ const searchReducer = (state = initialState, action) => {
       return {
         ...state,
         openPopup: action.openPopup
+      };
+    case types.LIST_COLLECTION_SAVED:
+      return {
+        ...state,
+        listCollectionSaved: action.listCollectionSaved
       };
     default:
       return state;

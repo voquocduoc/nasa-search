@@ -1,1 +1,2 @@
 export const LIST_COLLECTION = "LIST_COLLECTION";
+export const LIST_WISHLIST = "LIST_WISHLIST";

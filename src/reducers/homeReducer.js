@@ -1,16 +1,22 @@
 import * as types from "../actions/home/actionTypes";
 
 const initialState = {
-  listCollection: []
+  listCollection: [],
+  listWishList: []
 };
 
 const homeReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.LIST_COLLECTION:
-      let valueListCollection = action.listCollection;
       var result = {
         ...state,
-        listCollection : valueListCollection
+        listCollection : action.listCollection
+      };
+      return result;
+    case types.LIST_WISHLIST:
+      var result = {
+        ...state,
+        listWishList : action.listWishList
       };
       return result;
     default:

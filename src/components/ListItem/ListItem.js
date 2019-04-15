@@ -3,7 +3,17 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import LazyLoad from "react-lazyload";
 
-const ListItem = ({ dataItem, onClickAddToCollection, onClickEditItem, onClickAddToWishList, onClikDeleteItem }) => {
+const ListItem = ({ dataItem, listWishList, onClickAddToCollection, onClickEditItem, onClickAddToWishList, onClikDeleteItem, listCollectionSaved }) => {
+  let disabledAddToCollection = false;
+  if (typeof listCollectionSaved !== "undefined") {
+    disabledAddToCollection = listCollectionSaved.indexOf(dataItem.nasaID) > 0 ? true : false;
+  }
+
+  let hasWishList = "";
+  if (typeof listWishList !== "undefined") {
+    hasWishList = listWishList.indexOf(dataItem.nasaID) > -1 ? "selected" : "";
+  }
+
   return (
     <article className="item">
       <div className="col-sm-6 col-md-4 list-item-image-wrapper">
@@ -35,7 +45,7 @@ const ListItem = ({ dataItem, onClickAddToCollection, onClickEditItem, onClickAd
             <div className="description" dangerouslySetInnerHTML={{__html: dataItem.description}} />
             {
               typeof onClickAddToCollection === "function" &&
-              <button onClick={() => onClickAddToCollection(dataItem)} className="btn btn-default" role="button">
+              <button onClick={() => onClickAddToCollection(dataItem)} disabled={disabledAddToCollection} className="btn btn-default" role="button">
                 <span className="glyphicon-plus"></span>
                 <span>Add to NASA Collection</span>
               </button>
@@ -44,7 +54,7 @@ const ListItem = ({ dataItem, onClickAddToCollection, onClickEditItem, onClickAd
 
               {
                 typeof onClickAddToWishList === "function" &&
-                <button onClick={() => onClickAddToWishList(dataItem)} className="btn btn-primary" role="button">
+                <button onClick={() => onClickAddToWishList(dataItem)} className={`btn btn-primary ${hasWishList}`} role="button">
                   <span className="glyphicon glyphicon-heart"></span>
                 </button>
               }
@@ -76,6 +86,8 @@ ListItem.propTypes = {
   onClickEditItem: PropTypes.func,
   onClickAddToWishList: PropTypes.func,
   onClikDeleteItem: PropTypes.func,
+  listCollectionSaved: PropTypes.array,
+  listWishList: PropTypes.array
 };
 
 export default ListItem;

@@ -74,3 +74,16 @@ export const saveCollection = item => dispatch => {
     }
   });
 };
+
+export const getListCollectionSaved = () => dispatch => {
+  localStorage.getAllKeysCollection().then(result => {
+    if (result) {
+      dispatch(_setListCollectionSaved(JSON.parse(result)));
+    }
+  });
+};
+
+export const _setListCollectionSaved = list => ({
+  type: types.LIST_COLLECTION_SAVED,
+  listCollectionSaved: list
+});

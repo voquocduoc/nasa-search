@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { queryMedia, viewMedia, loadSpiner, openPopUp, saveCollection, saveSuccessCollection} from "../actions/search";
+import { queryMedia, viewMedia, loadSpiner, openPopUp, saveCollection, saveSuccessCollection, getListCollectionSaved} from "../actions/search";
 import SearchBox from "../components/SearchBox";
 import List from "../components/List";
 import Loader from "../components/Loader";
 import PopUp from "../components/PopUp";
 import serialize from "form-serialize";
+import hash from "object-hash";
 
 class Search extends Component {
   static propTypes = {
@@ -22,7 +23,9 @@ class Search extends Component {
     doSaveCollection: PropTypes.func,
     doSaveSuccessCollection: PropTypes.func,
     isSaveSuccessCollection: PropTypes.bool,
-    history: PropTypes.func
+    history: PropTypes.func,
+    listCollectionSaved: PropTypes.array,
+    doGetListCollectionSaved: PropTypes.func
   }
 
   constructor(props) {
@@ -43,6 +46,7 @@ class Search extends Component {
     this.props.doOpenPopup(false);
   }
 
+
   handleSubmitAddCollection = (event) => {
     event.preventDefault();
     var mediaItem = this.props.mediaItem;
@@ -52,11 +56,12 @@ class Search extends Component {
     mediaItem.linkAsset = formData.linkPreviewImageUrl;
     mediaItem.linkVideo = formData.linkFileUrl;
     mediaItem.mediaType = Number(formData.type);
+    this.props.doOpenPopup(false);
     this.props.doSaveCollection(mediaItem);
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.listData.length && nextProps.listData.length !== this.props.listData.length
+    return nextProps.listData.length && hash.MD5(nextProps.listData) !== hash.MD5(this.props.listData)
     || nextProps.isLoadSpiner !== this.props.isLoadSpiner
     || nextProps.openPopup !== this.props.openPopup
     || nextProps.isSaveSuccessCollection
@@ -68,6 +73,10 @@ class Search extends Component {
       this.props.doSaveSuccessCollection(false);
       this.props.history.goBack();
     }
+  }
+
+  componentDidMount() {
+    this.props.doGetListCollectionSaved();
   }
 
   render() {
@@ -94,7 +103,11 @@ class Search extends Component {
             <SearchBox onChangeValue={this.handleOnchangeValueSearch}/>
           </div>
           <div className="list-data">
-            <List listItems={listData} onClickAddToCollection={this.handleOnClickAddToCollection}/>
+            <List 
+              listItems={listData} 
+              onClickAddToCollection={this.handleOnClickAddToCollection}
+              listCollectionSaved={this.props.listCollectionSaved}
+              />
           </div>
           <div className="render-popup">
             <PopUp 
@@ -102,6 +115,8 @@ class Search extends Component {
               handleClose={this.handleClosePopup} 
               data={this.props.mediaItem}
               handleSubmitForm={this.handleSubmitAddCollection}
+              lableButton="Add to Collection"
+              lablePopup="Add to Collection"
             />
           </div>
           <div className="search-loading">
@@ -119,7 +134,8 @@ function mapStateToProps(state) {
     isLoadSpiner: state.searchReducer.loadSpiner,
     openPopup: state.searchReducer.openPopup,
     mediaItem: state.searchReducer.mediaItem,
-    isSaveSuccessCollection: state.searchReducer.saveSuccessCollection
+    isSaveSuccessCollection: state.searchReducer.saveSuccessCollection,
+    listCollectionSaved: state.searchReducer.listCollectionSaved
   };
 }
 
@@ -129,7 +145,8 @@ const mapDispatchToProps = {
   doLoadSpiner: loadSpiner,
   doOpenPopup: openPopUp,
   doSaveCollection: saveCollection,
-  doSaveSuccessCollection: saveSuccessCollection
+  doSaveSuccessCollection: saveSuccessCollection,
+  doGetListCollectionSaved: getListCollectionSaved
 };
 
 export default connect(
