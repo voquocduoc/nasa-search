@@ -6,7 +6,7 @@ const initialState = {
 
 const homeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.GET_LIST_COLLECTION:
+    case types.LIST_COLLECTION:
       let valueListCollection = action.listCollection;
       var result = {
         ...state,

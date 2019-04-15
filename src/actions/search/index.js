@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import api from "../../services/api";
+import localStorage from "../../services/localStorage";
 
 export const queryMedia = item => dispatch => {
   var resultData = [];
@@ -23,6 +24,15 @@ export const loadSpiner = value => dispatch => {
 const _loadSpiner = value => ({
   type: types.LOAD_SPINER,
   loadSpiner: value
+});
+
+export const saveSuccessCollection = value => dispatch => {
+  dispatch(_saveSuccessCollection(value));
+};
+
+const _saveSuccessCollection = value => ({
+  type: types.SAVE_SUCCESS_COLLECTION,
+  saveSuccessCollection: value
 });
 
 export const viewMedia = item => dispatch => {
@@ -54,3 +64,13 @@ const _openPopup = value => ({
   type: types.OPEN_POPUP,
   openPopup: value
 });
+
+export const saveCollection = item => dispatch => {
+  dispatch(_loadSpiner(true));
+  localStorage.saveCollection(item).then(result => {
+    if (result == "success") {
+      dispatch(_loadSpiner(false));
+      dispatch(_saveSuccessCollection(true));
+    }
+  });
+};

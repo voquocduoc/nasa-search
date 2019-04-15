@@ -1,8 +1,24 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { getListCollection } from "../actions/home";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import ListCollection from "../components/ListCollection";
 
 class HomePage extends Component {
+  static propTypes = {
+    doGetListCollection: PropTypes.func,
+    listCollection: PropTypes.array
+  }
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.doGetListCollection();
+  }
+
   render() {
     return (
       <div className="home">
@@ -18,6 +34,9 @@ class HomePage extends Component {
                 </button>
               </Link>
             </div>
+            <div className="list-collection">
+              <ListCollection listItems={this.props.listCollection} />
+            </div>
           </div>
         </div>
       </div>
@@ -26,7 +45,16 @@ class HomePage extends Component {
 }
 
 function mapStateToProps(state) {
-  return state;
+  return {
+    listCollection: state.homeReducer.listCollection
+  };
 }
 
-export default connect(mapStateToProps)(HomePage);
+const mapDispatchToProps = {
+  doGetListCollection: getListCollection
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomePage);

@@ -4,7 +4,8 @@ const initialState = {
   list: [],
   loadSpiner: false,
   openPopup: false,
-  mediaItem: {}
+  mediaItem: {},
+  saveSuccessCollection: false
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -13,6 +14,11 @@ const searchReducer = (state = initialState, action) => {
       return {
         ...state,
         list : action.list
+      };
+    case types.SAVE_SUCCESS_COLLECTION:
+      return {
+        ...state,
+        saveSuccessCollection : action.saveSuccessCollection
       };;
     case types.LOAD_SPINER:
       return {
