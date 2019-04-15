@@ -1,0 +1,25 @@
+.home {
+    margin-top: 50px;
+}
+.home {
+    h1 {
+        font-size: 50px;
+        color: #b9b9b9;
+    }
+    .add-new{
+        color: #fff;
+        background-color: #784cc0;
+        border-color: #784cc0;
+        padding: 10px 20px;
+        font-size: 26px;
+        margin-top: 12px;
+        &:hover{
+            background-color: #562a9e;
+            color: #fff;
+        }
+    }
+    .glyphicon-plus{
+        font-size: 35px;
+        line-height: 1;
+    }
+}

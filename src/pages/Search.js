@@ -56,12 +56,13 @@ class Search extends Component {
     return (
       <div className="search">
         <div className="container">
-          <nav className="navbar navbar-default">
+          <nav className="navbar">
             <div className="container-fluid">
               <div className="navbar-header">
                 <Link to="/">
-                  <div className="btn btn-default pull-left">
-                    <span className="glyphicon glyphicon-menu-left">Back to Collection</span>
+                  <div className="btn pull-left back">
+                    <span className="glyphicon glyphicon-menu-left"></span>
+                    <span>Back to Collection</span>
                   </div>
                 </Link>
               </div>

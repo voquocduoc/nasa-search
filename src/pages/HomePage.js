@@ -13,8 +13,9 @@ class HomePage extends Component {
             </div>
             <div className="col-md-4">
               <Link to="/nasa-search">
-                <button className="btn btn-default" type="button">
-                  <span className="glyphicon glyphicon-plus"> Add new Item</span>
+                <button className="btn btn-default add-new" type="button">
+                  <span className="glyphicon-plus"> </span>
+                  <span>Add new Item</span>
                 </button>
               </Link>
             </div>
