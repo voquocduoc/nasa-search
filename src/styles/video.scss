@@ -1,0 +1,13 @@
+.video {
+  .video-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: #424242;
+    transform: translate(-50%, -50%);
+    .media-detail-media {
+      margin: 50px;
+    }
+  }
+}
+

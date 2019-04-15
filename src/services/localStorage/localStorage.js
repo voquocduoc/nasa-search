@@ -33,6 +33,22 @@ const localStorage = {
       resolve(nasaCollectionKeys);
     });
   },
+  getCollection: (id) => {
+    return new Promise((resolve) => {
+      var nasaCollectionKeys = window.localStorage.getItem("nasa-collection-keys");
+      var nasaCollectionValues = window.localStorage.getItem("nasa-collection-values");
+      if (nasaCollectionKeys) {
+        nasaCollectionKeys = JSON.parse(nasaCollectionKeys);
+        nasaCollectionValues = JSON.parse(nasaCollectionValues);
+        var indexItemInCollection = nasaCollectionKeys.indexOf(id);
+        if (indexItemInCollection) {
+          resolve(nasaCollectionValues[indexItemInCollection]);
+        } else {
+          resolve("error");
+        }
+      }
+    });
+  },
   saveWishList: item => {
     return new Promise((resolve) => {
       var listWishList = window.localStorage.getItem("nasa-collection-wishlist");
