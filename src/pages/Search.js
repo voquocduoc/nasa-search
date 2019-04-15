@@ -21,7 +21,8 @@ class Search extends Component {
     doOpenPopup: PropTypes.func,
     doSaveCollection: PropTypes.func,
     doSaveSuccessCollection: PropTypes.func,
-    isSaveSuccessCollection: PropTypes.bool
+    isSaveSuccessCollection: PropTypes.bool,
+    history: PropTypes.func
   }
 
   constructor(props) {
@@ -29,7 +30,7 @@ class Search extends Component {
   }
 
   handleOnchangeValueSearch = (value) => {
-    if (value) {
+    if (value && value.length > 2) {
       this.props.doQueryMedia(value);
     }
   }
@@ -65,7 +66,6 @@ class Search extends Component {
   UNSAFE_componentWillUpdate(nextProps) {
     if (nextProps.isSaveSuccessCollection) {
       this.props.doSaveSuccessCollection(false);
-      // eslint-disable-next-line react/prop-types
       this.props.history.goBack();
     }
   }
