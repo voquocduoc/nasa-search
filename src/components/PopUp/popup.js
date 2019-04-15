@@ -34,8 +34,8 @@ class PopUp extends PureComponent {
   render() {
     return (
       <Modal 
-        open={open}
-        onClose={handleClose}
+        open={this.props.open}
+        onClose={this.props.handleClose}
         center
         classNames={{
           overlay: "search-modal-overlay",
