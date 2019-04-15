@@ -19,6 +19,18 @@ class HomePage extends Component {
     this.props.doGetListCollection();
   }
 
+  handleAddToWishList = (item) => {
+    console.log("addto wish", item);
+  }
+
+  handleDeleteItem = (item) => {
+    console.log("Delete Item", item);
+  }
+
+  handleEditItem = (item) => {
+    console.log("EDIT Item", item);
+  }
+
   render() {
     return (
       <div className="home">
@@ -36,7 +48,12 @@ class HomePage extends Component {
               </Link>
             </div>
             <div className="list-collection">
-              <ListCollection listItems={this.props.listCollection} />
+              <ListCollection 
+                listItems={this.props.listCollection} 
+                onClickAddToWishList={this.handleAddToWishList} 
+                onClikDeleteItem={this.handleDeleteItem} 
+                onClickEditItem={this.handleEditItem}
+              />
             </div>
           </div>
         </div>
