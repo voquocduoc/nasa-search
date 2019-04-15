@@ -6,7 +6,14 @@ import { TYPE_ITEMS } from "../../constant";
 const PopUp = ({ handleClose, data, open, handleSubmitForm }) => {
     var videosDisplay = typeof data.videos === "object" && data.videos ? data.videos[0].href : "";
     return (
-      <Modal open={open} onClose={handleClose} center>
+      <Modal 
+        open={open}
+        onClose={handleClose}
+        center
+        classNames={{
+          overlay: "search-modal-overlay",
+          modal: "search-modal",
+        }}>
         <div className="header-modal">
           <h1>Add to collection</h1>
         </div>
@@ -46,7 +53,7 @@ const PopUp = ({ handleClose, data, open, handleSubmitForm }) => {
               <label htmlFor="link-file-url">Link file url <span className="required">*</span></label>
               <input type="text" required className="form-control" name="linkFileUrl" id="link-file-url-popup" value={videosDisplay} />
             </div>
-            <button type="submit" className="btn btn-default">
+            <button type="submit" className="btn pupple small">
               Add to collection
             </button>
           </form>

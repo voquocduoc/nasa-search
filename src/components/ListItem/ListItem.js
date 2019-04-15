@@ -35,8 +35,9 @@ const ListItem = ({ dataItem, onClickAddToCollection, onClickEditItem, onClickAd
             <div className="description" dangerouslySetInnerHTML={{__html: dataItem.description}} />
             {
               typeof onClickAddToCollection === "function" &&
-              <button onClick={() => onClickAddToCollection(dataItem)} className="btn btn-primary" role="button">
-                <span className="glyphicon glyphicon-plus">Add to NASA Collection</span>
+              <button onClick={() => onClickAddToCollection(dataItem)} className="btn btn-default" role="button">
+                <span className="glyphicon-plus"></span>
+                <span>Add to NASA Collection</span>
               </button>
             }
 

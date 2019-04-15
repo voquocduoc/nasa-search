@@ -1,0 +1,15 @@
+.pupple{
+    color: #fff;
+    background-color: #784cc0;
+    border-color: #784cc0;
+    padding: 10px 20px;
+    font-size: 26px;
+    margin-top: 12px;
+    &:hover{
+        background-color: #562a9e;
+        color: #fff;
+    }
+    &.small{
+        font-size: 20px;
+    }
+}
