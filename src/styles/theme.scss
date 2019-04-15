@@ -13,3 +13,12 @@
         font-size: 20px;
     }
 }
+.btn-primary{
+    background-color: transparent;
+    color: #ccc;
+    border: 1px solid #ccc;
+    &:hover{
+        background-color: #562a9e;
+        border-color: #562a9e;
+    }
+}

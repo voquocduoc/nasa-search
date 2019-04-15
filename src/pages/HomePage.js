@@ -39,7 +39,7 @@ class HomePage extends Component {
             <div className="col-md-8">
               <h1>NASA Collection</h1>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 right">
               <Link to="/nasa-search">
                 <button className="btn pupple" type="button">
                   <span className="glyphicon-plus"> </span>
@@ -47,7 +47,7 @@ class HomePage extends Component {
                 </button>
               </Link>
             </div>
-            <div className="list-collection">
+            <div className="list-data">
               <ListCollection 
                 listItems={this.props.listCollection} 
                 onClickAddToWishList={this.handleAddToWishList} 

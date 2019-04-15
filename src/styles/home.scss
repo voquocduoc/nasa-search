@@ -3,9 +3,17 @@
     h1 {
         font-size: 50px;
         color: #b9b9b9;
+        font-weight: 400;
     }
     .glyphicon-plus{
         font-size: 35px;
         line-height: 1;
+    }
+    .left,
+    .right{
+        padding: 0;
+    }
+    .right{
+        text-align: right;
     }
 }
